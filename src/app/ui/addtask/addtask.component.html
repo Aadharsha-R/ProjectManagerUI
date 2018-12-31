@@ -105,7 +105,7 @@
                                           <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."> -->
                                           <input type="text" placeholder=" Search Parent Task" [(ngModel)]="flagParentTask" (keyup)='SearchbyParentTask()'>
                                               <table class="table"> 
-                                                  <tr *ngFor="let item of list1">
+                                                  <tr *ngFor="let item of list1|filter">
                                               <td (click)="AssignParentTask(item)" >{{item.TaskName}}</td>
                                               </tr>
                                               </table>

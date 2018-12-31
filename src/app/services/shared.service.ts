@@ -14,6 +14,7 @@ export class SharedService {
   GetProjurl:string='http://localhost/ProjectManager.API/GetProject'
   PostProjurl:string='http://localhost/ProjectManager.API/AddProject'
   PutProjurl:string='http://localhost/ProjectManager.API/UpdateProject'
+  DeleteProjecturl:string='http://localhost/ProjectManager.API/DeleteProject'
   GetTaskurl:string='http://localhost/ProjectManager.API/GetTask'
   PutTaskurl:string='http://localhost/ProjectManager.API/UpdateTask'
   PostTaskurl:string='http://localhost/ProjectManager.API/AddTask'
@@ -42,6 +43,11 @@ export class SharedService {
   UpdateProject(item:Project):Observable<any>
   {
     return this._http.put(this.PutProjurl,item)
+    .pipe(map((response:Response)=><any>response.json))
+  }
+  DeleteProject(item:Project):Observable<any>
+  {
+    return this._http.delete(this.DeleteProjecturl+"/"+item.ProjectId)
     .pipe(map((response:Response)=><any>response.json))
   }
   AddTask(item:Task):Observable<any>

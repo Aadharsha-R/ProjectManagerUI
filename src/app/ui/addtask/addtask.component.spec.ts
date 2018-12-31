@@ -5,6 +5,7 @@ import { AddtaskComponent } from './addtask.component';
 import {SharedService} from '../../services/shared.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import { HttpModule, Http, ConnectionBackend } from '@angular/http';
+import {FilterPipe} from '../../pipes/filter.pipe';
 // import { Task } from '../../models/task';
 
 
@@ -15,9 +16,9 @@ describe('AddtaskComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddtaskComponent ],
+      declarations: [ AddtaskComponent,FilterPipe ],
       imports : [RouterTestingModule,FormsModule,HttpModule],
-      providers:[SharedService,DatePipe]
+      providers:[SharedService,DatePipe,FilterPipe]
     })
     .compileComponents();
   }));

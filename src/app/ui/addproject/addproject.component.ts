@@ -5,7 +5,7 @@ import {SharedService} from '../../services/shared.service';
 import { Task } from '../../models/task';
 import { User } from '../../models/user';
 import { Router } from '@angular/router';
-import { FormGroup,FormBuilder,Validators } from '@angular/forms';
+import { OrderModule,OrderPipe } from 'ngx-order-pipe';
 
 
 @Component({
@@ -16,12 +16,15 @@ import { FormGroup,FormBuilder,Validators } from '@angular/forms';
 export class AddprojectComponent implements OnInit {
 item:Project
 isDisabled = true;
+display='none'; 
 StartDt:string;
 EndDt:string;
 StDate = new Date();
 EdDate = new Date();
 msg:string;
+flagProject:string;
 BtnText:string = "Add";
+//angForm: FormGroup;
 UserModaldisplay='none'; 
   itemEndTask:Project;
   list:Project[];
@@ -31,8 +34,13 @@ UserModaldisplay='none';
   Userlist:User[];
   Userlist1:User[];
   flagUser:string;
+  Order="Project Id";
   //form: FormGroup;//  submitted=false;
-  
+  SearchbyProject()
+  {
+   console.log(this.flagProject);
+   this.list1=this.list.filter(i=>i.ProjectName!=null && i.ProjectName.startsWith(this.flagProject));
+  }
 
 EnableDateFields() {
         this.isDisabled = !this.isDisabled;
@@ -44,7 +52,6 @@ EnableDateFields() {
     }
 
   constructor(private _datepipe : DatePipe,private _router:Router,private _service:SharedService) {
-    //this.createForm();
     this.item = new Project();
     this._service.GetProject()
     .subscribe(i=>this.list=this.list1=i);
@@ -59,12 +66,10 @@ console.log(this.item.SDate);
 console.log(this.item.EDate);
    }
 
+  
+
   ngOnInit() {
-    //   this.form = this.fb.group({
-    //   dateTo:'',
-    //   dateFrom:''
-    // }, {validator: this.dateLessThan('dateFrom', 'dateTo')});
-  }
+      }
 
   SearchbyUser()
   {
@@ -74,7 +79,19 @@ console.log(this.item.EDate);
 
   Add()
   {
-    if(this.BtnText=="Add")
+      if(this.item.ProjectName==null || this.item.ProjectName=='')
+      {
+        alert("Project Field Cannot be Empty");
+        return;
+      }
+      else if(this.item.UserId==null)
+      {
+        alert("Please Choose Manager");
+        return;
+      }
+      else
+      {
+        if(this.BtnText=="Add")
     {
     //Call service method
  this._service.AddProject(this.item)
@@ -96,6 +113,8 @@ console.log(this.item.EDate);
       });
     }
   }
+}
+  
   openUserModal(){
     this.UserModaldisplay='block'; 
   }
@@ -109,7 +128,28 @@ console.log(this.item.EDate);
     this.item.UserId=Usr.UserId;
   }
 
+  SortByStartDate()
+  {
+    this.Order = "SDate";
+  }
+  SortByEndDate()
+  {
+    this.Order = "EDate";
+  }
+  SortByPriority()
+  {
+    this.Order = "Priority";
+  }
+  SortByCompleted()
+  {
+    this.Order = "CompletedTasks";
+  }
 
+  AssignProject(Prj:Project)
+  {
+    this.flagProject = Prj.ProjectName;
+    this.item.ProjectId=Prj.ProjectId;
+  }
 
   Update(Updateitem:Project)
   {
@@ -118,5 +158,20 @@ console.log(this.item.EDate);
   //this._router.navigate(['/View']);
   }
    
-
+  openModal(){
+    this.display='block'; 
+ }
+ onCloseHandled(){
+  this.display='none'; 
+}
+DeleteProject(Deleteitem:Project)
+{
+  this._service.DeleteProject(Deleteitem)
+    .subscribe(i=>{
+      this.msg=i
+      console.log(this.msg);
+      alert('Project Suspended!!!');
+      window.location.reload();
+    });
+}
 }

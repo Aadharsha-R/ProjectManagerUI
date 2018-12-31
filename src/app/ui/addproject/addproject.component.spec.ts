@@ -7,6 +7,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import { HttpModule, Http, ConnectionBackend } from '@angular/http';
 import {MatDividerModule} from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
+import { OrderModule,OrderPipe } from 'ngx-order-pipe';
 
 describe('AddprojectComponent', () => {
   let component: AddprojectComponent;
@@ -15,8 +16,8 @@ describe('AddprojectComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AddprojectComponent ],
-      imports : [RouterTestingModule,FormsModule,HttpModule,MatDividerModule,MatDialogModule],
-      providers:[SharedService,DatePipe]
+      imports : [RouterTestingModule,OrderModule,FormsModule,HttpModule,MatDividerModule,MatDialogModule],
+      providers:[SharedService,DatePipe,OrderPipe]
     })
     .compileComponents();
   }));

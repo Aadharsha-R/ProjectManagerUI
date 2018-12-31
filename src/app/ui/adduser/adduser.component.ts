@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../../models/user';
 import {SharedService} from '../../services/shared.service';
+import { OrderModule,OrderPipe } from 'ngx-order-pipe';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-adduser',
@@ -15,11 +17,20 @@ list:User[];
   listFilter:User[];
   msg:string;
   BtnText="Add";
+  Order="User Id";
+  flagUser:string;
   constructor(private _service:SharedService) {
     this.item= new User();
     this._service.GetUser()
     .subscribe(i=>this.list=this.list1=i);
    }
+  
+  //form: FormGroup;//  submitted=false;
+  SearchbyUser()
+  {
+   console.log(this.flagUser);
+   this.list1=this.list.filter(i=>i.FirstName!=null && i.FirstName.startsWith(this.flagUser));
+  }
 
   ngOnInit() {
   }
@@ -65,6 +76,19 @@ list:User[];
         alert('User Changes Deleted!!!');
         window.location.reload();
       });
+  }
+
+  SortByFirstName()
+  {
+    this.Order = "FirstName";
+  }
+  SortByLastName()
+  {
+    this.Order = "LastName";
+  }
+  SortByEmployeeID()
+  {
+    this.Order = "EmployeeID";
   }
 
 }

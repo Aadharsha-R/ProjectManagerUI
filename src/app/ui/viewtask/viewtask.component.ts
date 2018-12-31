@@ -38,6 +38,13 @@ msg:string;
     if(Prj == null)
     {
       this.flagProject = "All"
+      this.Viewlist1=this.Viewlist.filter(i=>i.TaskId!=null);
+    }
+    else
+    {
+      this.flagProject = Prj.ProjectName;
+      this.flagProjectID = Prj.ProjectId;
+      this.SearchTask();
     }
   }
 

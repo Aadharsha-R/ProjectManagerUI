@@ -3,6 +3,7 @@ import {Task} from '../../models/task';
 import {Project} from '../../models/project';
 import {User} from '../../models/user';
 import {SharedService} from '../../services/shared.service';
+import {FilterPipe} from '../../pipes/filter.pipe';
 
 @Component({
   selector: 'app-addtask',
@@ -25,7 +26,7 @@ export class AddtaskComponent implements OnInit {
   display='none';
   ParentTaskModaldisplay='none';
   UserModaldisplay='none';
-  constructor(private _service:SharedService) {
+  constructor(private _service:SharedService, private _pipe:FilterPipe) {
     this.item = new Task();
     this._service.GetTask()
     .subscribe(i=>this.list=this.list1=i);

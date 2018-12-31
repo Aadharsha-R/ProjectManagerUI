@@ -1,21 +1,22 @@
+<form #myForm="ngForm">
 <table class="table" colspan="3">
     <tr>
       <td>
         <strong>First Name :</strong>
       </td>
-      <td ><input type="text" [(ngModel)]="item.FirstName"></td>
+      <td ><input type="text" [(ngModel)]="item.FirstName" name="FirstName"></td>
     </tr>
     <tr>
         <td>
             <strong>Last Name :</strong>
         </td>
-        <td><input type="text" [(ngModel)]="item.LastName"></td>
+        <td><input type="text" [(ngModel)]="item.LastName"  name="LastName"></td>
     </tr>
     <tr>
         <td>
             <strong>Employee ID :</strong>
         </td>
-        <td><input  type="number" [(ngModel)]="item.EmployeeID"></td>
+        <td><input  type="number" [(ngModel)]="item.EmployeeID" name="EmployeeID"></td>
     </tr>
     <tr>
     <br />
@@ -24,8 +25,9 @@
 <div>
         <button type="button"  (click)="Add()" name="Add" value="Add">{{this.BtnText}}</button>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="submit"  name="Reset"  value="Reset">
+        <input type="submit"  name="Reset" (click)="myForm.reset()" value="Reset">
 </div>
+</form>
 <br/>
 <mat-divider></mat-divider>
 <br/>
@@ -34,19 +36,21 @@
       <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
         <td>&nbsp;&nbsp;Search&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td><input type="text"></td>
+        <td>
+          <input type="text" placeholder=" Search by FirstName" [(ngModel)]="flagUser" (keyup)='SearchbyUser()'>
+        </td>
         <td>&nbsp;&nbsp; Sort By </td>&nbsp;&nbsp;&nbsp;&nbsp;
         <td>
-        <button type="button">First Name</button>
-        <button type="button">Last Name</button>
-        <button type="button">ID</button>
+        <button type="button" (click)="SortByFirstName()">First Name</button>
+        <button type="button" (click)="SortByLastName()">Last Name</button>
+        <button type="button" (click)="SortByEmployeeID()">ID</button>
       </td>      
       </tr>
   </table>
     
   <br/>
   <table>
-      <tr  *ngFor ="let item of list1">
+      <tr  *ngFor ="let item of list1 | orderBy: Order">
         <td>
             <table class="table">
               <tr>
