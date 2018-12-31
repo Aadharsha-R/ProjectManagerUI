@@ -1,0 +1,212 @@
+<div class="container">
+    <table class="table">
+          <tr hidden="true">
+                  <td>
+                      <strong>Task Id</strong>
+                  </td>
+                  <td>
+                      <input type="text"  value=1 id="txtTaskId" [(ngModel)]="item.TaskId" required name="TaskId" >
+                  </td>
+              </tr>
+              <tr>
+                    <td>
+                        <strong>Project</strong>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                              <td>
+                        <input type="text" id="txtProject" [ngModel]="flagProject"  required name="ProjectName">
+                        &nbsp;&nbsp;&nbsp;
+                        <button type="button" (click)="openModal()">Search</button>
+  
+                        <div class="backdrop" [ngStyle]="{'display':display}"></div>
+                        <div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Model Title</h4>
+                              </div>
+                              <div class="modal-body">
+                                      <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."> -->
+                                      <input type="text" placeholder=" Search Project" [(ngModel)]="flagProject" (keyup)='SearchbyProject()'>
+                                          <table class="table"> 
+                                              <tr *ngFor="let item of Projectlist1">
+                                          <td (click)="AssignProject(item)" >{{item.ProjectName}}</td>
+                                          </tr>
+                                          </table>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" (click)="onCloseHandled()" >Close</button>
+                              </div>
+                            </div><!-- /.modal-content -->
+                          </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal !-->
+  
+                        </td>
+                      </tr>
+                      </table>  
+                    </td>
+                </tr>
+              <tr>
+                  <td>
+                      <strong>Task</strong>
+                  </td>
+                  <td>
+                    <table>
+                      <tr>
+                        <td>
+                      <input type="text" id="txtTask" [(ngModel)]="item.TaskName" required name="TaskName">
+                    </td>
+                  </tr>
+                    <tr>
+                    <td>
+                  <input type="checkbox" name="DateChk" id="myChk" (change)="DisableFields()" />&nbsp;Parent Task&nbsp;&nbsp;&nbsp;
+                </td>
+                </tr>
+                </table>
+                </td>
+              </tr>
+              <tr>
+                    <td>
+                        <strong>Priority</strong>
+          
+                    </td>
+                    <td>
+                        <input type="range" id="txtRange" [disabled]="IsEnabled" min="0" max="30" step="1" value="0" [(ngModel)]="item.Priority" name="Priority"
+                            oninput="txtRange_Priority.value=txtRange.value">
+                    </td>
+                    <td>
+                            <output id="txtRange_Priority"></output>
+                    </td>   
+                </tr>
+                <tr>
+                        <td>
+                            <strong>Parent Task</strong>
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                  <td>
+                            <input type="text" id="txtTask" [(ngModel)]="flagParentTask" [disabled]="IsEnabled">
+                            &nbsp;&nbsp;&nbsp;
+                            <button type="button" (click)="openParentTaskModal()">Search</button>
+      
+                            <div class="backdrop" [ngStyle]="{'display':ParentTaskModaldisplay}"></div>
+                            <div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':ParentTaskModaldisplay}">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" aria-label="Close" (click)="onParentTaskCloseHandled()"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Model Title</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                          <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."> -->
+                                          <input type="text" placeholder=" Search Parent Task" [(ngModel)]="flagParentTask" (keyup)='SearchbyParentTask()'>
+                                              <table class="table"> 
+                                                  <tr *ngFor="let item of list1">
+                                              <td (click)="AssignParentTask(item)" >{{item.TaskName}}</td>
+                                              </tr>
+                                              </table>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" (click)="onParentTaskCloseHandled()" >Close</button>
+                                  </div>
+                                </div><!-- /.modal-content -->
+                              </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal !-->
+      
+                            </td>
+                          </tr>
+                          </table>
+                        </td>
+                    </tr>
+              <tr>
+                  <td>
+                      <strong>Start Date</strong>
+                  </td>
+                  <td>
+                      <table>
+                          <tr>
+                            <td>
+                      <input type="Date" id="dtStartDate" [disabled]="IsEnabled" [(ngModel)]="item.SDate" name="StartDate">
+                      </td>
+                    </tr>
+                    </table>
+                  </td>
+              </tr>
+              <tr>
+                  <td>
+                      <strong>End Date</strong>
+                  </td>
+                  <td>
+                      <table>
+                          <tr>
+                            <td>
+                      <input type="Date" id="dtEndDate" [disabled]="IsEnabled" [(ngModel)]="item.EDate" name="EndDate">
+                      </td>
+                    </tr>
+                    </table>
+                  </td>
+              </tr>
+              
+              <tr>
+                  <td>
+                      <strong>User</strong>
+                  </td>
+                  <td>
+                      <table>
+                          <tr>
+                            <td>
+                      <input type="text" id="txtUser" [(ngModel)]="flagUser" required name="UserName">
+                      &nbsp;&nbsp;&nbsp;
+                      <button type="button" (click)="openUserModal()">Search</button>
+
+                      <div class="backdrop" [ngStyle]="{'display':UserModaldisplay}"></div>
+                      <div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':UserModaldisplay}">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" aria-label="Close" (click)="onUserCloseHandled()"><span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title">Model Title</h4>
+                            </div>
+                            <div class="modal-body">
+                                    <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."> -->
+                                    <input type="text" placeholder=" Search User" [(ngModel)]="flagUser" (keyup)='SearchbyUser()'>
+                                        <table class="table"> 
+                                            <tr *ngFor="let item of Userlist1">
+                                        <td (click)="AssignUser(item)" >{{item.FirstName}} {{item.LastName}}</td>
+                                        </tr>
+                                        </table>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" (click)="onUserCloseHandled()" >Close</button>
+                            </div>
+                          </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                      </div><!-- /.modal !-->
+
+                      </td>
+                    </tr>
+                      </table>
+                  </td>
+              </tr>
+           
+        <tr>
+            <td colspan="2" class="btnAdd" >
+                <table class="table">
+                    <tr>
+                      <td>
+                <button type="button" (click)="Add()" name="Add" value="Add">Add</button>
+                &nbsp;&nbsp;
+                <input type="submit" name="Reset"  value="Reset">
+                </td>
+              </tr>
+              </table>
+            </td>
+        </tr>
+    </table>
+  </div>
+  
+  

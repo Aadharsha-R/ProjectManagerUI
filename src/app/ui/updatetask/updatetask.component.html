@@ -1,0 +1,61 @@
+<form #myForm="ngForm">
+    <table class="table">
+        <tr>
+            <td>
+                <strong>Task</strong>
+            </td>
+            <td>
+                <input type="text" id="txtTask" [(ngModel)]="item.TaskName"  name="TaskName">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Priority</strong>
+  
+            </td>
+            <td>
+                <input type="range" id="txtRange" min="0" max="30" step="1" value="0" [(ngModel)]="item.Priority" name="Priority"
+                    oninput="txtRange_Priority.value=txtRange.value">
+            </td>
+            <td>
+                    <output id="txtRange_Priority"></output>
+            </td>   
+        </tr>
+        <tr>
+            <td>
+                <strong>Parent Task</strong>
+            </td>
+            <td>
+                <select id="txtParent" [(ngModel)]="item.ParentTask"  name="ParentTask" style="width:210px;height:30px;">
+                    <option [value]="item.ParentTask"  *ngFor="let item of list|filter" selected="item.ParentTask" >{{item.ParentTask}}</option>
+                    <option [value]="" selected="item.ParentTask"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Start Date</strong>
+            </td>
+            <td>
+                <input type="text" id="dtStartDate" [(ngModel)]="item.SDate"  required name="StartDate">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>End Date</strong>
+            </td>
+            <td>
+                <input type="text" id="dtEndDate" [(ngModel)]="item.EDate" name="EndDate">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="btnAdd">
+                <button type="button" class="btn btn-primary" (click)="Update(); myForm.reset()" name="Update" value="Update">Update</button>
+                &nbsp;&nbsp;
+                <input type="submit" class="btn btn-primary" (click)='cancel()' name="Cancel" value="Cancel">
+            </td>
+        </tr>
+    </table>
+  </form>
+  
+  

@@ -1,0 +1,132 @@
+<!-- <form #myForm="ngForm"> -->
+    <table>
+        <tr>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+          
+          <td>
+            <table>
+                <tr>
+                    <td>&nbsp;&nbsp;Project&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                  <td>
+            <input type="text" id="txtProject" [ngModel]="flagProject" (keyup)='SearchTask()'  required name="ProjectName">
+            <button type="button" (click)="openModal()">Search</button>
+
+            <div class="backdrop" [ngStyle]="{'display':display}"></div>
+            <div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Model Title</h4>
+                  </div>
+                  <div class="modal-body">
+                          <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."> -->
+                          <input type="text" placeholder=" Search Project" [(ngModel)]="flagProject" (keyup)='SearchbyProject()'>
+                              <table class="table"> 
+                                  <tr>
+                                      <td (click)="AssignProject(null)" >All</td>
+                                  </tr>
+                                  <tr *ngFor="let item of Projectlist1">
+                              <td (click)="AssignProject(item)" >{{item.ProjectName}}</td>
+                              </tr>
+                              </table>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" (click)="onCloseHandled()" >Close</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal !-->
+
+            </td>
+          <td>&nbsp;&nbsp; Sort Task By </td>&nbsp;&nbsp;&nbsp;&nbsp;
+          <td>
+              <button type="button" (click)="SortByStartDate()">Start Date</button>
+              <button type="button" (click)="SortByEndDate()">End Date</button>
+              <button type="button" (click)="SortByPriority()">Priority</button>
+              <button type="button" (click)="SortByCompleted()">Completed</button>
+        </td>      
+        </tr>
+    </table>
+    <br />
+    
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">TaskId</th>
+            <th scope="col">Task Name</th>
+            <th scope="col">Parent Name</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor ="let item of Viewlist1 | orderBy: Order">
+            <td>{{item.TaskId}}</td>
+            <td>{{item.TaskName}}</td>
+            <td>{{item.ParentTask}}</td>
+            <td>{{item.Priority}}</td>
+            <td>{{item.SDate | date:'dd-MM-yy'}}</td>
+            <td>{{item.EDate | date:'dd-MM-yy'}}</td>
+            <td><button type="button" [disabled]="item.TaskEndFlag" (click)=Update(item.TaskId)>Edit Task</button> </td>
+            <td><button type="button" [disabled]="item.TaskEndFlag"  (click)=EndTask(item.TaskId)>End Task</button> </td>
+          </tr>
+        </tbody>
+        <!-- <tr>
+          <td>Task1</td>
+          <td>Parent Task1</td>
+          <td>0</td>
+            <td>10</td>
+          <td>09-09-2018</td>
+          <td>09-09-2018</td>
+          <td><button type="button" (click)='Update()'>Edit Task</button> </td>
+          <td><button type="button">End Task</button> </td>
+        </tr>
+        <tr>
+          <td>Task 2</td>
+          <td>Parent Task 2</td>
+          <td>0</td>
+          <td>20</td>
+          <td>09-09-2018</td>
+          <td>09-09-2018</td>
+          <td><button type="button" (click)='Update()'>Edit Task</button> </td>
+          <td><button type="button">End Task</button> </td>
+        </tr>
+        <tr>
+          <td>Task 3</td>
+          <td>Parent Task 3</td>
+          <td>0</td>
+          <td>30</td>
+          <td>09-09-2018</td>
+          <td>09-09-2018</td>
+          <td><button type="button" (click)='Update()'>Edit Task</button> </td>
+          <td><button type="button">End Task</button> </td>
+        </tr>
+        <tr>
+          <td>Task 4</td>
+          <td>Parent Task 4</td>
+          <td>10</td>
+          <td>20</td>
+          <td>09-09-2018</td>
+          <td>09-09-2018</td>
+          <td><button type="button" (click)='Update()'>Edit Task</button> </td>
+          <td><button type="button">End Task</button> </td>
+        </tr>
+        <tr>
+          <td>Task 5</td>
+          <td>Parent Task 5</td>
+          <td>15</td>
+          <td>20</td>
+          <td>09-09-2018</td>
+          <td>09-09-2018</td>
+          <td><button type="button" (click)='Update()'>Edit Task</button> </td>
+          <td><button type="button">End Task</button> </td>
+        </tr> -->
+      </table>
+      <!-- </form> -->
+      
+      

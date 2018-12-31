@@ -1,0 +1,178 @@
+<div class="container">
+  <table class="table">
+    <tr>
+      <td >
+          <strong>Project</strong>
+      </td>
+      <td>
+        <table>
+          <tr>
+            <td colspan="1">
+              <input type="text" [(ngModel)]="item.ProjectName">
+            </td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" name="DateChk" id="myChk" (change)="EnableDateFields()" />&nbsp;Set Start and End Date&nbsp;&nbsp;&nbsp;</td>
+            <td>StartDate</td>
+            <td>&nbsp;&nbsp;<input type="date"  [disabled]="isDisabled"  [ngModel]="item.SDate| date:'yyyy-MM-dd'" (ngModelChange)="item.SDate=$event" ></td>
+            <!-- <td><input type="date"  [(ngModel)]="item.SDate" value="item.SDate"  [disabled]="isDisabled" /></td> -->
+            <td>&nbsp;&nbsp;EndDate</td>
+            <td>&nbsp;&nbsp;<input type="date" [ngModel]="item.EDate| date:'yyyy-MM-dd'"  (ngModelChange)="item.EDate=$event" (change)="EnableDateFields()"  value="item.EDate"  [disabled]="isDisabled" />
+              <!-- <div *ngIf="error.isError" class="alert alert-danger">
+                {{ error.errorMessage }}
+             </div> -->
+             <!-- <label *ngIf="form.errors" style="color: red">{{ form.errors?.dateerror}}</label> -->
+            </td>
+          </tr>
+      </table>
+      </td>
+      <tr>
+      <td>
+          <strong>Priority</strong>
+
+      </td>
+      <td>
+          <input type="range" id="txtRange" min="0" max="30" step="1" value="0" [(ngModel)]="item.Priority" name="Priority"
+              oninput="txtRange_Priority.value=txtRange.value">
+      </td>
+      <td>
+              <output id="txtRange_Priority"></output>
+      </td>   
+  </tr>
+  <tr>
+      <tr>
+          <td>
+              <strong>Manager</strong>
+          </td>
+          <td>
+              <table>
+                  <tr>
+                    <td>
+              <input type="text" id="txtUser" [(ngModel)]="flagUser" required name="UserName">
+              &nbsp;&nbsp;&nbsp;
+              <button type="button" (click)="openUserModal()">Search</button>
+
+              <div class="backdrop" [ngStyle]="{'display':UserModaldisplay}"></div>
+              <div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':UserModaldisplay}">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" aria-label="Close" (click)="onUserCloseHandled()"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title">Model Title</h4>
+                    </div>
+                    <div class="modal-body">
+                            <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."> -->
+                            <input type="text" placeholder=" Search User" [(ngModel)]="flagUser" (keyup)='SearchbyUser()'>
+                                <table class="table"> 
+                                    <tr *ngFor="let item of Userlist1">
+                                <td (click)="AssignUser(item)" >{{item.FirstName}} {{item.LastName}}</td>
+                                </tr>
+                                </table>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" (click)="onUserCloseHandled()" >Close</button>
+                    </div>
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+              </div><!-- /.modal !-->
+
+              </td>
+            </tr>
+              </table>
+          </td>
+      </tr>
+      <tr>
+    <td colspan="2" class="btnAdd" >
+        <button type="button"  (click)="Add()"  name="Add" value="Add">{{this.BtnText}}</button>
+        &nbsp;&nbsp;
+        <!-- <button   [disabled]="form.invalid" name="Add" value="Add">{{this.BtnText}}</button>
+        &nbsp;&nbsp; -->
+        <!-- <button type="submit"  >Submit</button> -->
+        &nbsp;&nbsp;
+        <input type="submit"  name="Reset"  value="Reset">
+        
+    </td>
+</tr>
+  </table>
+</div>
+<mat-divider></mat-divider>
+<br/>
+<div>
+  <table>
+      <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;Search&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td><input type="text"></td>        
+      <td><button type="button"  (click)="Add()" name="Add" value="Add">Search</button></td>
+      </tr>
+    </table>
+    
+  <br/>
+
+  <table>
+    <tr>
+      <td>&nbsp;&nbsp; Sort By </td>&nbsp;&nbsp;&nbsp;&nbsp;
+      <td  class="btnAdd" >
+        <button type="button">Start Date</button>
+        <button type="button">End Date</button>
+        <button type="button">Priority</button>
+        <button type="button">Completed</button>
+      </td>
+    </tr>
+  </table>
+  
+  <table class="table">
+      <tr *ngFor ="let item of list1">
+          <td>
+            <table class="table">
+              <tr>
+                <td>
+                  <table class="table">
+                    <tr>
+                      <td>Project:</td>
+                      <td>{{item.ProjectName}}</td>
+                    </tr>
+                    <tr>
+                      <td>No of Tasks</td>
+                      <td>{{item.TotalTasks}}</td>
+                      <td>Completed</td>
+                      <td>{{item.CompletedTasks}}</td>
+                    </tr>
+                    <tr>
+                        <td>Start Date:</td>
+                        <td>{{item.SDate}}</td>
+                        <!-- <td>{{item.SDate | date:'dd-MM-yy'}}</td> -->
+                        <td>End Date</td>
+                        <td>{{item.EDate}}</td>
+                        <!-- <td>{{item.EDate | date:'dd-MM-yy'}}</td> -->
+                    </tr>
+                  </table>
+                </td>
+                <td>
+                  <table class="table" style="background-color:blanchedalmond">
+                    <tr>
+                      <td><strong>Priority</strong></td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                      <td>{{item.Priority}}</td>
+                    </tr>
+                  </table >
+                </td>
+                <td>
+                  <table class="table">
+                    <tr>
+                        <td><button type="button" (click)="Update(item)" > Update </button> </td>
+                    </tr>
+                    <tr>
+                        <td><button type="button" (click)='cancel()' >Suspend</button> </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+    </table>
+  
+</div>
